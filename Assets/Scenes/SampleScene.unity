@@ -240,7 +240,6 @@ GameObject:
   m_Component:
   - component: {fileID: 180770868}
   - component: {fileID: 180770871}
-  - component: {fileID: 180770870}
   - component: {fileID: 180770869}
   m_Layer: 0
   m_Name: Player
@@ -278,39 +277,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2859a517d7ba2c4bb2d62bc98745838, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
-  speed: 5
-  mouseSensitivity: 100
+  controls: {fileID: -944628639613478452, guid: ec92eaa81824c6c488d54c1f223bab29, type: 3}
   cameraTransform: {fileID: 330585546}
---- !u!114 &180770870
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 180770867}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.PlayerInput
-  m_Actions: {fileID: -944628639613478452, guid: ec92eaa81824c6c488d54c1f223bab29, type: 3}
-  m_NotificationBehavior: 3
-  m_UIInputModule: {fileID: 0}
-  m_DeviceLostEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_DeviceRegainedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ControlsChangedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ActionEvents: []
-  m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
-  m_DefaultActionMap: Player
-  m_SplitScreenIndex: -1
-  m_Camera: {fileID: 330585545}
+  moveSpeed: 5
+  mouseSensitivity: 100
+  gravity: -9.81
 --- !u!143 &180770871
 CharacterController:
   m_ObjectHideFlags: 0
