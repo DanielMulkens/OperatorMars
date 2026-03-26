@@ -9,7 +9,7 @@ public class FPSUIInteraction : MonoBehaviour
     [Header("Input")]
     public InputActionAsset inputActions;   // Drag your PlayerInput.inputactions here
     public string actionMapName = "Player"; // Name of the Action Map
-    public string actionName = "Interact";  // Name of your action
+    public string actionName = "InteractMain";  // Name of your action
 
     [Header("Camera & UI")]
     public Camera playerCamera;

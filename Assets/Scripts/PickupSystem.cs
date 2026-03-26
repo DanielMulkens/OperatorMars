@@ -20,7 +20,7 @@ public class PhysicsGrab : MonoBehaviour
 
     void Awake()
     {
-        interactAction = inputActions.FindAction("Interact");
+        interactAction = inputActions.FindAction("InteractMain");
     }
 
     void OnEnable()

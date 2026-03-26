@@ -12,15 +12,19 @@ public class SimpleFPSController : MonoBehaviour
 
     [Header("Look")]
     [Tooltip("Scale this to adjust mouse speed")]
-    public float mouseSensitivity = 1f; // With Scale Vector2, can use 1
+    public float mouseSensitivity = 1f;
 
     [Header("Gravity")]
     public float gravity = -9.81f;
+
+    [Header("Interaction")]
+    public float interactDistance = 5f;
 
     CharacterController controller;
 
     InputAction moveAction;
     InputAction lookAction;
+    InputAction interactSecondAction; // E key
 
     Vector3 velocity;
     float xRotation = 0f;
@@ -33,14 +37,17 @@ public class SimpleFPSController : MonoBehaviour
 
         moveAction = map.FindAction("Move");
         lookAction = map.FindAction("Look");
+        interactSecondAction = map.FindAction("InteractSecond"); // E key for world buttons
     }
 
     void OnEnable()
     {
         moveAction.Enable();
         lookAction.Enable();
+        interactSecondAction.Enable();
 
-        // Lock and hide cursor
+        interactSecondAction.performed += OnInteractSecond;
+
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
@@ -49,6 +56,9 @@ public class SimpleFPSController : MonoBehaviour
     {
         moveAction.Disable();
         lookAction.Disable();
+        interactSecondAction.Disable();
+
+        interactSecondAction.performed -= OnInteractSecond;
 
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
@@ -67,7 +77,6 @@ public class SimpleFPSController : MonoBehaviour
 
         controller.Move(move * moveSpeed * Time.deltaTime);
 
-        // Gravity
         if (controller.isGrounded && velocity.y < 0)
             velocity.y = -2f;
 
@@ -87,5 +96,19 @@ public class SimpleFPSController : MonoBehaviour
 
         cameraTransform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
         transform.Rotate(Vector3.up * mouseX);
+    }
+
+    void OnInteractSecond(InputAction.CallbackContext context)
+    {
+        Ray ray = new Ray(cameraTransform.position, cameraTransform.forward);
+
+        if (Physics.Raycast(ray, out RaycastHit hit, interactDistance))
+        {
+            InteractableButton button = hit.collider.GetComponent<InteractableButton>();
+            if (button != null)
+            {
+                button.Interact();
+            }
+        }
     }
 }
