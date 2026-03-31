@@ -17,9 +17,7 @@ public class SequenceUI : MonoBehaviour
 
     private int TotalCapacity => sequenceLines.Length * lineCapacity;
 
-    /// <summary>
-    /// Adds a command to the first available sequence line.
-    /// </summary>
+    // Adds a command to the sequence UI (optional for your system)
     public bool AddCommand(CommandType command)
     {
         if (sequence.Count >= TotalCapacity)
@@ -45,17 +43,12 @@ public class SequenceUI : MonoBehaviour
         return true;
     }
 
-    /// <summary>
-    /// Removes the last command added
-    /// </summary>
     public void RemoveLastCommand()
     {
-        if (sequence.Count == 0)
-            return;
+        if (sequence.Count == 0) return;
 
         sequence.RemoveAt(sequence.Count - 1);
 
-        // Remove icon from last non-empty line
         for (int i = sequenceLines.Length - 1; i >= 0; i--)
         {
             if (sequenceLines[i].childCount > 0)
@@ -67,58 +60,30 @@ public class SequenceUI : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Clears the entire sequence
-    /// </summary>
     public void ClearSequence()
     {
         sequence.Clear();
-
         foreach (Transform line in sequenceLines)
         {
             for (int i = line.childCount - 1; i >= 0; i--)
-            {
                 Destroy(line.GetChild(i).gameObject);
-            }
         }
     }
 
-    /// <summary>
-    /// Returns the command sequence
-    /// </summary>
     public List<CommandType> GetSequence()
     {
         return new List<CommandType>(sequence);
     }
 
-    /// <summary>
-    /// Number of commands currently in sequence
-    /// </summary>
-    public int CommandCount
-    {
-        get { return sequence.Count; }
-    }
-
-    /// <summary>
-    /// Gets the correct icon prefab for a command
-    /// </summary>
-    GameObject GetIconPrefab(CommandType command)
+    private GameObject GetIconPrefab(CommandType command)
     {
         switch (command)
         {
-            case CommandType.MoveForward:
-                return moveForwardIcon;
-
-            case CommandType.TurnLeft:
-                return turnLeftIcon;
-
-            case CommandType.TurnRight:
-                return turnRightIcon;
-
-            case CommandType.UseDrill:
-                return drillIcon;
+            case CommandType.MoveForward: return moveForwardIcon;
+            case CommandType.TurnLeft: return turnLeftIcon;
+            case CommandType.TurnRight: return turnRightIcon;
+            case CommandType.UseDrill: return drillIcon;
         }
-
         return null;
     }
 }

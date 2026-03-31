@@ -1064,7 +1064,7 @@ Transform:
   m_GameObject: {fileID: 360628041}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.7071068, z: -0.7071068, w: 0}
-  m_LocalPosition: {x: 0.039, y: -0.223, z: 0.13}
+  m_LocalPosition: {x: 0.039, y: -0.223, z: 0.19}
   m_LocalScale: {x: 0.009999995, y: 0.009999997, z: 0.009999997}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1945,6 +1945,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 370a81ec1ce160749876eb73039a7146, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InteractableButton
+  sequenceUI: {fileID: 258412748}
+  robotController: {fileID: 1233727795}
 --- !u!95 &503690384
 Animator:
   serializedVersion: 7
@@ -3168,7 +3170,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: b6c7c8e861656844cb92c57981888af7, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3694,7 +3696,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d4897288869788d4aaa797a58433ab70, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 10.74
+      value: 4.12
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d4897288869788d4aaa797a58433ab70, type: 3}
       propertyPath: m_LocalPosition.z
@@ -3737,7 +3739,10 @@ PrefabInstance:
     - {fileID: -8700617353114198275, guid: d4897288869788d4aaa797a58433ab70, type: 3}
     - {fileID: 65702495048144492, guid: d4897288869788d4aaa797a58433ab70, type: 3}
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d4897288869788d4aaa797a58433ab70, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1233727795}
   m_SourcePrefab: {fileID: 100100000, guid: d4897288869788d4aaa797a58433ab70, type: 3}
 --- !u!1 &939749772
 GameObject:
@@ -5467,6 +5472,26 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!1 &1233727793 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: d4897288869788d4aaa797a58433ab70, type: 3}
+  m_PrefabInstance: {fileID: 909069455}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1233727795
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1233727793}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10ef15d74a2022d468500a9516f3ca21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RobotController
+  moveDistance: 8.5
+  moveSpeed: 0.5
+  rotateSpeed: 90
 --- !u!1 &1262680111
 GameObject:
   m_ObjectHideFlags: 0
@@ -7225,7 +7250,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: b6c7c8e861656844cb92c57981888af7, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -8000,7 +8025,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
+  field of view: 56
   orthographic: 0
   orthographic size: 50
   m_Depth: 0
@@ -8591,7 +8616,7 @@ Transform:
   m_GameObject: {fileID: 1928282467}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0.06}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -8683,6 +8708,52 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 503690385}
   m_SourcePrefab: {fileID: 100100000, guid: 9a32b5036facdb346ade3d0c31b277d7, type: 3}
+--- !u!1 &1939817849
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1939817851}
+  - component: {fileID: 1939817850}
+  m_Layer: 0
+  m_Name: SequenceExecutor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1939817850
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1939817849}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b25c6cdc5a31f9a44b14d9745cea72bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SequenceExecutor
+  sequenceUI: {fileID: 258412748}
+  robotController: {fileID: 1233727795}
+--- !u!4 &1939817851
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1939817849}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 6.26045, y: 8.01701, z: 15.98}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1959480224
 GameObject:
   m_ObjectHideFlags: 0
@@ -8763,7 +8834,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: b6c7c8e861656844cb92c57981888af7, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -8952,7 +9023,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: b6c7c8e861656844cb92c57981888af7, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -10061,8 +10132,8 @@ Transform:
   m_GameObject: {fileID: 2826812729898339605}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1000, y: 50, z: 1000}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalPosition: {x: 258.51, y: -9.57, z: 258.51}
+  m_LocalScale: {x: 0.8624, y: 0.8624, z: 0.8624}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5907808465974701942}
@@ -10171,3 +10242,4 @@ SceneRoots:
   - {fileID: 1672685352}
   - {fileID: 983659162}
   - {fileID: 909069455}
+  - {fileID: 1939817851}

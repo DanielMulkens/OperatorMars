@@ -12,9 +12,8 @@ public class RobotController : MonoBehaviour
         Vector3 start = transform.position;
         Vector3 end = start + transform.forward * moveDistance;
 
-        float t = 0;
-
-        while (t < 1)
+        float t = 0f;
+        while (t < 1f)
         {
             t += Time.deltaTime * moveSpeed;
             transform.position = Vector3.Lerp(start, end, t);
@@ -27,9 +26,8 @@ public class RobotController : MonoBehaviour
         Quaternion start = transform.rotation;
         Quaternion end = start * Quaternion.Euler(0, -90, 0);
 
-        float t = 0;
-
-        while (t < 1)
+        float t = 0f;
+        while (t < 1f)
         {
             t += Time.deltaTime * (rotateSpeed / 90f);
             transform.rotation = Quaternion.Slerp(start, end, t);
@@ -42,9 +40,8 @@ public class RobotController : MonoBehaviour
         Quaternion start = transform.rotation;
         Quaternion end = start * Quaternion.Euler(0, 90, 0);
 
-        float t = 0;
-
-        while (t < 1)
+        float t = 0f;
+        while (t < 1f)
         {
             t += Time.deltaTime * (rotateSpeed / 90f);
             transform.rotation = Quaternion.Slerp(start, end, t);
@@ -54,7 +51,7 @@ public class RobotController : MonoBehaviour
 
     public IEnumerator UseDrill()
     {
-        // placeholder for drill animation
+        // Placeholder for drill animation
         yield return new WaitForSeconds(0.5f);
     }
 }
