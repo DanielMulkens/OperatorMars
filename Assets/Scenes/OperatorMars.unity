@@ -1438,8 +1438,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Use Drill
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 2b0f9b39e06828b4e80e0ff038d1b26b, type: 2}
+  m_sharedMaterial: {fileID: -8213581400993418339, guid: 2b0f9b39e06828b4e80e0ff038d1b26b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1463,8 +1463,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 24
-  m_fontSizeBase: 24
+  m_fontSize: 35
+  m_fontSizeBase: 35
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 0
@@ -1479,7 +1479,7 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_TextWrappingMode: 0
+  m_TextWrappingMode: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
@@ -1572,10 +1572,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Turn Left 90*
+  m_text: "Turn Left 90\xB0"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 2b0f9b39e06828b4e80e0ff038d1b26b, type: 2}
+  m_sharedMaterial: {fileID: -8213581400993418339, guid: 2b0f9b39e06828b4e80e0ff038d1b26b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1599,8 +1599,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 24
-  m_fontSizeBase: 24
+  m_fontSize: 35
+  m_fontSizeBase: 35
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 0
@@ -1615,7 +1615,7 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_TextWrappingMode: 0
+  m_TextWrappingMode: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
@@ -2824,7 +2824,7 @@ GameObject:
   - component: {fileID: 727964455}
   - component: {fileID: 727964454}
   m_Layer: 5
-  m_Name: Button (3)
+  m_Name: TurnRightButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2847,7 +2847,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 67, y: -105}
+  m_AnchoredPosition: {x: 205, y: -17.000015}
   m_SizeDelta: {x: 160, y: 160}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &727964454
@@ -3214,7 +3214,7 @@ GameObject:
   - component: {fileID: 799722887}
   - component: {fileID: 799722886}
   m_Layer: 5
-  m_Name: Button (4)
+  m_Name: UseDrillButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3237,7 +3237,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 528, y: -105}
+  m_AnchoredPosition: {x: 666, y: -17.000015}
   m_SizeDelta: {x: 160, y: 160}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &799722886
@@ -3732,7 +3732,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: d4897288869788d4aaa797a58433ab70, type: 3}
       propertyPath: m_Name
-      value: 25042_Perseverance
+      value: -Mars Robot-
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
@@ -4086,12 +4086,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 983659159}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.2, y: 18.51, z: -4.88}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 9.30058, y: 17.19214, z: -14.698811}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1672685352}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &994441415
 GameObject:
@@ -5102,10 +5102,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Turn right 90*
+  m_text: "Turn right 90\xB0"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 2b0f9b39e06828b4e80e0ff038d1b26b, type: 2}
+  m_sharedMaterial: {fileID: -8213581400993418339, guid: 2b0f9b39e06828b4e80e0ff038d1b26b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -5129,8 +5129,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 24
-  m_fontSizeBase: 24
+  m_fontSize: 35
+  m_fontSizeBase: 35
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 0
@@ -5145,7 +5145,7 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_TextWrappingMode: 0
+  m_TextWrappingMode: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
@@ -6604,8 +6604,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Move Forward
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 2b0f9b39e06828b4e80e0ff038d1b26b, type: 2}
+  m_sharedMaterial: {fileID: -8213581400993418339, guid: 2b0f9b39e06828b4e80e0ff038d1b26b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -6629,8 +6629,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 24
-  m_fontSizeBase: 24
+  m_fontSize: 35
+  m_fontSizeBase: 35
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 0
@@ -6645,7 +6645,7 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_TextWrappingMode: 0
+  m_TextWrappingMode: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
@@ -7467,7 +7467,7 @@ GameObject:
   - component: {fileID: 1634740229}
   - component: {fileID: 1634740228}
   m_Layer: 5
-  m_Name: Button (2)
+  m_Name: TurnLeftButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7490,7 +7490,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -378, y: -105}
+  m_AnchoredPosition: {x: -240, y: -17.000015}
   m_SizeDelta: {x: 160, y: 160}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1634740228
@@ -7822,6 +7822,7 @@ Transform:
   - {fileID: 2004374628}
   - {fileID: 503690386}
   - {fileID: 2021518551}
+  - {fileID: 983659162}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1674631829
@@ -8052,7 +8053,7 @@ Transform:
   m_GameObject: {fileID: 1842406839}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 219, y: 54, z: 582}
+  m_LocalPosition: {x: 219, y: 49, z: 582}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8233,7 +8234,7 @@ GameObject:
   - component: {fileID: 1874723735}
   - component: {fileID: 1874723734}
   m_Layer: 5
-  m_Name: Button (1)
+  m_Name: MoveForwardButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8247,7 +8248,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1874723732}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 2.0182, y: 2.0182, z: 2.0182}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -8256,7 +8257,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -788, y: -104}
+  m_AnchoredPosition: {x: -650, y: -16}
   m_SizeDelta: {x: 160, y: 160}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1874723734
@@ -9240,8 +9241,8 @@ MonoBehaviour:
 
 '
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 2b0f9b39e06828b4e80e0ff038d1b26b, type: 2}
+  m_sharedMaterial: {fileID: -8213581400993418339, guid: 2b0f9b39e06828b4e80e0ff038d1b26b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -9265,8 +9266,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 24
-  m_fontSizeBase: 24
+  m_fontSize: 35
+  m_fontSizeBase: 35
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 0
@@ -9839,6 +9840,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TurnLeft
       objectReference: {fileID: 0}
+    - target: {fileID: 6414145896519684466, guid: f6bde6c989a95014eadfdc9f3a5b48e6, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -9896,6 +9901,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: UseDrill
       objectReference: {fileID: 0}
+    - target: {fileID: 7296473234163549711, guid: a62f55aea51998e44a8369346bb01393, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -9930,6 +9939,10 @@ PrefabInstance:
     - target: {fileID: 1024385109732356871, guid: df52bc76f1672bf4798a8b58a7e7ca4f, type: 3}
       propertyPath: m_Name
       value: TurnRight
+      objectReference: {fileID: 0}
+    - target: {fileID: 1024385109732356871, guid: df52bc76f1672bf4798a8b58a7e7ca4f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6562500541707491989, guid: df52bc76f1672bf4798a8b58a7e7ca4f, type: 3}
       propertyPath: m_LocalPosition.x
@@ -10077,6 +10090,10 @@ PrefabInstance:
     - target: {fileID: 235316700432869213, guid: b8faae84fcea7cb42846064183a93d64, type: 3}
       propertyPath: m_Name
       value: MoveForward
+      objectReference: {fileID: 0}
+    - target: {fileID: 235316700432869213, guid: b8faae84fcea7cb42846064183a93d64, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4805359602095080040, guid: b8faae84fcea7cb42846064183a93d64, type: 3}
       propertyPath: m_LocalPosition.x
@@ -10235,11 +10252,10 @@ SceneRoots:
   - {fileID: 180770868}
   - {fileID: 356178379}
   - {fileID: 258412749}
+  - {fileID: 1939817851}
   - {fileID: 1842406842}
   - {fileID: 2108301999}
   - {fileID: 1634745239}
   - {fileID: 728964252}
   - {fileID: 1672685352}
-  - {fileID: 983659162}
   - {fileID: 909069455}
-  - {fileID: 1939817851}
