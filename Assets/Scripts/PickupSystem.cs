@@ -6,11 +6,16 @@ public class PhysicsGrab : MonoBehaviour
     [Header("Input")]
     public InputActionAsset inputActions;
     private InputAction interactAction;
+    private InputAction throwAction;
 
     [Header("Grab Settings")]
     public Transform holdPoint;
     public float grabDistance = 3f;
     public float moveSpeed = 15f;
+
+    [Header("Throw Settings")]
+    public float throwForce = 15f;
+    public float throwUpwardBoost = 0.2f;
 
     [Header("Layers")]
     public LayerMask ignoreLayers;
@@ -21,18 +26,25 @@ public class PhysicsGrab : MonoBehaviour
     void Awake()
     {
         interactAction = inputActions.FindAction("InteractMain");
+        throwAction = inputActions.FindAction("Throw");
     }
 
     void OnEnable()
     {
         interactAction.Enable();
+        throwAction.Enable();
+
         interactAction.performed += OnInteract;
+        throwAction.performed += OnThrow;
     }
 
     void OnDisable()
     {
         interactAction.performed -= OnInteract;
+        throwAction.performed -= OnThrow;
+
         interactAction.Disable();
+        throwAction.Disable();
     }
 
     void Update()
@@ -49,6 +61,14 @@ public class PhysicsGrab : MonoBehaviour
             TryGrab();
         else
             Release();
+    }
+
+    void OnThrow(InputAction.CallbackContext context)
+    {
+        if (heldObject != null)
+        {
+            ThrowObject();
+        }
     }
 
     void TryGrab()
@@ -68,8 +88,8 @@ public class PhysicsGrab : MonoBehaviour
                 if (heldRb != null)
                 {
                     heldRb.useGravity = false;
-                    heldRb.linearDamping = 10;
-                    heldRb.angularDamping = 10;
+                    heldRb.linearDamping = 10f;
+                    heldRb.angularDamping = 10f;
                 }
             }
         }
@@ -81,6 +101,24 @@ public class PhysicsGrab : MonoBehaviour
         Vector3 direction = targetPosition - heldObject.transform.position;
 
         heldRb.linearVelocity = direction * moveSpeed;
+    }
+
+    void ThrowObject()
+    {
+        heldRb.useGravity = true;
+        heldRb.linearDamping = 0;
+        heldRb.angularDamping = 0;
+
+        // Reset velocity before throwing
+        heldRb.linearVelocity = Vector3.zero;
+
+        // Natural arc throw direction
+        Vector3 throwDirection = Camera.main.transform.forward + Vector3.up * throwUpwardBoost;
+
+        heldRb.AddForce(throwDirection.normalized * throwForce, ForceMode.Impulse);
+
+        heldObject = null;
+        heldRb = null;
     }
 
     void Release()
