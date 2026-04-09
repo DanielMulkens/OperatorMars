@@ -1,39 +1,58 @@
 using UnityEngine;
+using TMPro;
+using System.Collections;
 
 public class InteractableButton : MonoBehaviour
 {
     private Animator animator;
 
     [Header("References")]
-    public SequenceUI sequenceUI;           // Reference to your sequence UI
-    public RobotController robotController; // Reference to your robot
+    public SequenceUI sequenceUI;          // Your sequence UI
+    public RobotController robotController;
+    public LevelData currentLevel;
 
+    [Header("UI")]
+    public TextMeshPro sequenceSendText;   // World-space TMP text
+
+    private int sendCount = 0;
     private bool isSequenceRunning = false;
 
     void Awake()
     {
         animator = GetComponent<Animator>();
+        UpdateSendText();
     }
 
-    // Call this either via UI OnClick() or from PlayerMovement keybind
+    /// <summary>
+    /// Called when player clicks the send button
+    /// </summary>
     public void Interact()
     {
         if (isSequenceRunning)
-            return; // prevent double execution
+            return;
+
+        if (currentLevel != null && sendCount >= currentLevel.maxSequenceSends)
+        {
+            Debug.Log("No more sequence sends allowed!");
+            return;
+        }
 
         animator.SetTrigger("Press");
         StartCoroutine(RunSequence());
+
+        sendCount++;
+        UpdateSendText();
     }
 
-    private System.Collections.IEnumerator RunSequence()
+    private IEnumerator RunSequence()
     {
         isSequenceRunning = true;
 
-        // Lock the sequence so player can't move blocks while executing
-        sequenceUI.enabled = false;
+        // Lock sequence UI while running
+        if (sequenceUI != null)
+            sequenceUI.enabled = false;
 
         var commands = sequenceUI.GetSequence();
-
         foreach (var command in commands)
         {
             switch (command)
@@ -53,8 +72,31 @@ public class InteractableButton : MonoBehaviour
             }
         }
 
-        // Unlock sequence after execution
-        sequenceUI.enabled = true;
+        // Clear the sequence line after execution
+        if (sequenceUI != null)
+            sequenceUI.ClearSequence();
+
+        // Unlock sequence UI
+        if (sequenceUI != null)
+            sequenceUI.enabled = true;
+
         isSequenceRunning = false;
+    }
+
+    /// <summary>
+    /// Resets the send count (called when a new level is loaded)
+    /// </summary>
+    public void ResetSendCount()
+    {
+        sendCount = 0;
+        UpdateSendText();
+    }
+
+    private void UpdateSendText()
+    {
+        if (sequenceSendText != null && currentLevel != null)
+        {
+            sequenceSendText.text = $"Sends: {sendCount}/{currentLevel.maxSequenceSends}";
+        }
     }
 }
