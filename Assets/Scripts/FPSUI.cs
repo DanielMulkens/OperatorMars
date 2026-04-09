@@ -56,13 +56,17 @@ public class FPSUIInteraction : MonoBehaviour
         TryUIInteract();
     }
 
+    /// <summary>
+    /// Tries to interact with a UI button at the center of the screen
+    /// </summary>
     void TryUIInteract()
     {
         if (eventSystem == null || playerCamera == null) return;
 
-        // Create a PointerEventData at the center of the camera
-        PointerEventData pointerData = new PointerEventData(eventSystem);
-        pointerData.position = playerCamera.WorldToScreenPoint(playerCamera.transform.position + playerCamera.transform.forward * interactDistance);
+        PointerEventData pointerData = new PointerEventData(eventSystem)
+        {
+            position = new Vector2(Screen.width / 2f, Screen.height / 2f)
+        };
 
         List<RaycastResult> results = new List<RaycastResult>();
         GraphicRaycaster[] raycasters = FindObjectsOfType<GraphicRaycaster>();
@@ -76,9 +80,12 @@ public class FPSUIInteraction : MonoBehaviour
                 if (btn != null)
                 {
                     btn.onClick.Invoke();
-                    return; // Stop after first clicked button
+                    Debug.Log($"Button clicked: {btn.name}");
+                    return; // Only trigger the first detected button
                 }
             }
         }
+
+        Debug.Log("No button detected under center of screen.");
     }
 }

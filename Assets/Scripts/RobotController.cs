@@ -3,25 +3,40 @@ using System.Collections;
 
 public class RobotController : MonoBehaviour
 {
+    [Header("Movement")]
     public float moveDistance = 1f;
     public float moveSpeed = 2f;
     public float rotateSpeed = 180f;
 
     [Header("Obstacle Detection")]
-    public LayerMask obstacleLayer;     // Assign "Obstacle" layer in inspector
-    public float checkDistance = 1f;    // Distance to check in front of robot
+    public LayerMask obstacleLayer;
+    public LayerMask destructableLayer;
+
+    public float checkDistance = 1.1f;
+    public float drillDistance = 1.2f;
+    public float rayHeight = 0.5f;
+
+    private LayerMask movementBlockLayer;
+
+    void Start()
+    {
+        // Combine both layers so both block movement
+        movementBlockLayer = obstacleLayer | destructableLayer;
+    }
 
     public IEnumerator MoveForward()
     {
-        // Check if an obstacle is directly in front of the robot
-        if (Physics.Raycast(transform.position, transform.forward, checkDistance, obstacleLayer))
+        Vector3 rayOrigin = transform.position + Vector3.up * rayHeight;
+
+        // Block movement if obstacle OR destructable object
+        if (Physics.Raycast(rayOrigin, transform.forward, checkDistance, movementBlockLayer))
         {
-            Debug.Log("Move blocked by obstacle.");
+            Debug.Log("Move blocked");
 
-            // Optional: small delay so the command still "feels" executed
+            Debug.DrawRay(rayOrigin, transform.forward * checkDistance, Color.red, 1f);
+
             yield return new WaitForSeconds(0.1f);
-
-            yield break; // Skip movement but consume command
+            yield break;
         }
 
         Vector3 start = transform.position;
@@ -69,7 +84,33 @@ public class RobotController : MonoBehaviour
 
     public IEnumerator UseDrill()
     {
-        // Placeholder for drill animation
-        yield return new WaitForSeconds(0.5f);
+        RaycastHit hit;
+
+        Vector3 rayOrigin = transform.position + Vector3.up * rayHeight;
+
+        // Only detect destructable objects
+        if (Physics.Raycast(rayOrigin, transform.forward, out hit, drillDistance, destructableLayer))
+        {
+            Debug.Log("Drilled object: " + hit.collider.name);
+
+            Debug.DrawRay(rayOrigin, transform.forward * drillDistance, Color.blue, 1f);
+
+            Destructible destructible = hit.collider.GetComponentInParent<Destructible>();
+
+            if (destructible != null)
+            {
+                destructible.DestroyObject();
+            }
+
+            yield return new WaitForSeconds(0.5f);
+        }
+        else
+        {
+            Debug.Log("Nothing to drill");
+
+            Debug.DrawRay(rayOrigin, transform.forward * drillDistance, Color.yellow, 1f);
+
+            yield return new WaitForSeconds(0.2f);
+        }
     }
 }
