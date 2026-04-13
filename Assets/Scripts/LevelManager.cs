@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using System.Collections;
 
 public class LevelManager : MonoBehaviour
 {
@@ -7,12 +8,13 @@ public class LevelManager : MonoBehaviour
     public LevelLoader levelLoader;
     public CanvasGroup levelCompleteUI;
     public TypewriterEffectTMP typewriterTMP;
+    public NarrativeUI narrativeUI;
 
     [Header("UI")]
     public TextMeshPro levelIndicatorText;
 
     [Header("Settings")]
-    public float levelCompleteDelay = 2f; // Delay before next level
+    public float levelCompleteDelay = 2f;
 
     private bool levelCompleted = false;
 
@@ -25,7 +27,7 @@ public class LevelManager : MonoBehaviour
             levelCompleteUI.blocksRaycasts = false;
         }
 
-        LoadLevel(0); // Start first level
+        LoadLevel(0);
     }
 
     void Update()
@@ -64,7 +66,9 @@ public class LevelManager : MonoBehaviour
             typewriterTMP.ShowMessage($"LEVEL {levelLoader.CurrentLevelIndex + 1} COMPLETED");
         }
 
-        // Load next level after delay
+        if (narrativeUI != null)
+            narrativeUI.Hide();
+
         Invoke(nameof(LoadNextLevel), levelCompleteDelay);
     }
 
@@ -81,6 +85,16 @@ public class LevelManager : MonoBehaviour
 
         levelLoader.LoadLevel(index);
         UpdateLevelIndicator();
+
+        if (narrativeUI != null && levelLoader.CurrentLevelData != null)
+            StartCoroutine(ShowNarrativeDelayed());
+    }
+
+    private IEnumerator ShowNarrativeDelayed()
+    {
+        yield return new WaitForSeconds(0.1f);
+        if (levelLoader.CurrentLevelData != null)
+            narrativeUI.ShowNarrative(levelLoader.CurrentLevelData);
     }
 
     private void LoadNextLevel()

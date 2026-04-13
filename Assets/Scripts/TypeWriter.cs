@@ -1,15 +1,16 @@
 using UnityEngine;
 using TMPro;
 using System.Collections;
+using System;
 
 public class TypewriterEffectTMP : MonoBehaviour
 {
-    public TMP_Text uiText;               // Assign your TMP Text component
-    public float characterDelay = 0.05f;  // Time between each character
+    public TMP_Text uiText;
+    public float characterDelay = 0.05f;
+    public float punctuationPause = 1f;
 
-    /// <summary>
-    /// Starts typing the message
-    /// </summary>
+    public event Action OnTypingComplete;
+
     public void ShowMessage(string message)
     {
         StopAllCoroutines();
@@ -22,7 +23,13 @@ public class TypewriterEffectTMP : MonoBehaviour
         foreach (char c in message)
         {
             uiText.text += c;
-            yield return new WaitForSeconds(characterDelay);
+
+            if (c == '.' || c == '!' || c == '?')
+                yield return new WaitForSeconds(punctuationPause);
+            else
+                yield return new WaitForSeconds(characterDelay);
         }
+
+        OnTypingComplete?.Invoke();
     }
 }

@@ -168,7 +168,7 @@ Transform:
   m_GameObject: {fileID: 1151064913232743043}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 214.31635, y: 0, z: 575.53735}
+  m_LocalPosition: {x: 893.57965, y: 429.1183, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -192,6 +192,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LevelData
   levelName: Forwarding
+  narrativeText: Day 1 on Mars. The dust has settled and the robot is ready for deployment.
+    A small rock is blocking the survey path. Clear it and move forward. Every great
+    mission starts somewhere.
   maxSequenceSends: 1
   robotStart: {fileID: 8216393944062697022}
   targetArea: {fileID: 7037277440891360323}

@@ -24,7 +24,7 @@ public class SimpleFPSController : MonoBehaviour
 
     InputAction moveAction;
     InputAction lookAction;
-    InputAction interactSecondAction; // E key
+    InputAction interactSecondAction;
 
     Vector3 velocity;
     float xRotation = 0f;
@@ -37,7 +37,7 @@ public class SimpleFPSController : MonoBehaviour
 
         moveAction = map.FindAction("Move");
         lookAction = map.FindAction("Look");
-        interactSecondAction = map.FindAction("InteractSecond"); // E key for world buttons
+        interactSecondAction = map.FindAction("InteractSecond");
     }
 
     void OnEnable()
@@ -109,6 +109,24 @@ public class SimpleFPSController : MonoBehaviour
             {
                 button.Interact();
             }
+        }
+    }
+
+    public void SetPaused(bool paused)
+    {
+        if (paused)
+        {
+            moveAction.Disable();
+            lookAction.Disable();
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
+        else
+        {
+            moveAction.Enable();
+            lookAction.Enable();
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
         }
     }
 }
