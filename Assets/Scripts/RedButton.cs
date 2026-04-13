@@ -7,12 +7,13 @@ public class InteractableButton : MonoBehaviour
     private Animator animator;
 
     [Header("References")]
-    public SequenceUI sequenceUI;          // Your sequence UI
+    public SequenceUI sequenceUI;
     public RobotController robotController;
+    public SequenceExecutor sequenceExecutor;
     public LevelData currentLevel;
 
     [Header("UI")]
-    public TextMeshPro sequenceSendText;   // World-space TMP text
+    public TextMeshPro sequenceSendText;
 
     private int sendCount = 0;
     private bool isSequenceRunning = false;
@@ -23,9 +24,6 @@ public class InteractableButton : MonoBehaviour
         UpdateSendText();
     }
 
-    /// <summary>
-    /// Called when player clicks the send button
-    /// </summary>
     public void Interact()
     {
         if (isSequenceRunning)
@@ -48,44 +46,20 @@ public class InteractableButton : MonoBehaviour
     {
         isSequenceRunning = true;
 
-        // Lock sequence UI while running
         if (sequenceUI != null)
             sequenceUI.enabled = false;
 
-        var commands = sequenceUI.GetSequence();
-        foreach (var command in commands)
-        {
-            switch (command)
-            {
-                case CommandType.MoveForward:
-                    yield return robotController.MoveForward();
-                    break;
-                case CommandType.TurnLeft:
-                    yield return robotController.TurnLeft();
-                    break;
-                case CommandType.TurnRight:
-                    yield return robotController.TurnRight();
-                    break;
-                case CommandType.UseDrill:
-                    yield return robotController.UseDrill();
-                    break;
-            }
-        }
+        yield return sequenceExecutor.PlaySequenceCoroutine();
 
-        // Clear the sequence line after execution
         if (sequenceUI != null)
             sequenceUI.ClearSequence();
 
-        // Unlock sequence UI
         if (sequenceUI != null)
             sequenceUI.enabled = true;
 
         isSequenceRunning = false;
     }
 
-    /// <summary>
-    /// Resets the send count (called when a new level is loaded)
-    /// </summary>
     public void ResetSendCount()
     {
         sendCount = 0;
@@ -95,8 +69,6 @@ public class InteractableButton : MonoBehaviour
     private void UpdateSendText()
     {
         if (sequenceSendText != null && currentLevel != null)
-        {
             sequenceSendText.text = $"Sends: {sendCount}/{currentLevel.maxSequenceSends}";
-        }
     }
 }

@@ -9,6 +9,7 @@ public class LevelManager : MonoBehaviour
     public CanvasGroup levelCompleteUI;
     public TypewriterEffectTMP typewriterTMP;
     public NarrativeUI narrativeUI;
+    public SequenceExecutor sequenceExecutor;
 
     [Header("UI")]
     public TextMeshPro levelIndicatorText;
@@ -62,9 +63,7 @@ public class LevelManager : MonoBehaviour
         }
 
         if (typewriterTMP != null)
-        {
             typewriterTMP.ShowMessage($"LEVEL {levelLoader.CurrentLevelIndex + 1} COMPLETED");
-        }
 
         if (narrativeUI != null)
             narrativeUI.Hide();
@@ -85,6 +84,9 @@ public class LevelManager : MonoBehaviour
 
         levelLoader.LoadLevel(index);
         UpdateLevelIndicator();
+
+        if (sequenceExecutor != null)
+            sequenceExecutor.RefreshCaveEntrances();
 
         if (narrativeUI != null && levelLoader.CurrentLevelData != null)
             StartCoroutine(ShowNarrativeDelayed());
