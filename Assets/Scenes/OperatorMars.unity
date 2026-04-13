@@ -12622,6 +12622,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1939817851}
   - component: {fileID: 1939817850}
+  - component: {fileID: 1939817852}
   m_Layer: 0
   m_Name: SequenceExecutor
   m_TagString: Untagged
@@ -12658,6 +12659,24 @@ Transform:
   m_Children: []
   m_Father: {fileID: 787738650}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1939817852
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1939817849}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27dc7a9b8f532c84daacf5544282a390, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BlockSpawnManager
+  blockPrefabs:
+  - {fileID: 235316700432869213, guid: b8faae84fcea7cb42846064183a93d64, type: 3}
+  - {fileID: 6414145896519684466, guid: f6bde6c989a95014eadfdc9f3a5b48e6, type: 3}
+  - {fileID: 1024385109732356871, guid: df52bc76f1672bf4798a8b58a7e7ca4f, type: 3}
+  - {fileID: 7296473234163549711, guid: a62f55aea51998e44a8369346bb01393, type: 3}
+  maxBlocksPerPrefab: 5
 --- !u!1 &1959480224
 GameObject:
   m_ObjectHideFlags: 0
