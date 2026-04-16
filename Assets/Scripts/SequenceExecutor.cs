@@ -6,21 +6,6 @@ public class SequenceExecutor : MonoBehaviour
 {
     public SequenceUI sequenceUI;
     public RobotController robotController;
-    public float caveTeleportThreshold = 0.75f;
-
-    private CaveEntrance[] caveEntrances;
-    private CaveEntrance lastUsedEntrance;
-
-    void Start()
-    {
-        RefreshCaveEntrances();
-    }
-
-    public void RefreshCaveEntrances()
-    {
-        caveEntrances = FindObjectsByType<CaveEntrance>(FindObjectsSortMode.None);
-        Debug.Log($"Found {caveEntrances.Length} cave entrances");
-    }
 
     public void PlaySequence()
     {
@@ -29,6 +14,8 @@ public class SequenceExecutor : MonoBehaviour
 
     public IEnumerator PlaySequenceCoroutine()
     {
+        robotController.sequenceRunning = true;
+
         List<CommandType> commands = sequenceUI.GetSequence();
 
         foreach (CommandType command in commands)
@@ -38,53 +25,48 @@ public class SequenceExecutor : MonoBehaviour
                 case CommandType.MoveForward:
                     yield return robotController.MoveForward();
                     break;
+
                 case CommandType.TurnLeft:
                     yield return robotController.TurnLeft();
                     break;
+
                 case CommandType.TurnRight:
                     yield return robotController.TurnRight();
                     break;
+
                 case CommandType.UseDrill:
                     yield return robotController.UseDrill();
                     break;
             }
         }
 
-        Debug.Log($"Sequence done. Robot position: {robotController.transform.position}");
-        CheckCaveEntrance();
+        robotController.sequenceRunning = false;
+
+        Debug.Log("Sequence finished. Checking caves...");
+
+        CheckCavesAfterSequence();
     }
 
-    private void CheckCaveEntrance()
+    private void CheckCavesAfterSequence()
     {
-        if (caveEntrances == null || caveEntrances.Length == 0)
+        List<SimpleCavePortal> caves = CaveManager.GetCaves();
+
+        if (caves == null || caves.Count == 0)
         {
-            Debug.Log("No cave entrances found");
+            Debug.Log("No caves registered");
             return;
         }
 
-        foreach (CaveEntrance cave in caveEntrances)
+        foreach (SimpleCavePortal cave in caves)
         {
-            if (cave == null) continue;
-
-            // Skip the exit point the robot just arrived at
-            if (cave == lastUsedEntrance?.linkedEntrance) continue;
-
-            float distance = Vector3.Distance(
-                new Vector3(robotController.transform.position.x, 0, robotController.transform.position.z),
-                new Vector3(cave.transform.position.x, 0, cave.transform.position.z)
-            );
-
-            Debug.Log($"Distance to {cave.gameObject.name}: {distance}");
-
-            if (distance <= caveTeleportThreshold)
+            if (cave != null && cave.robotInside)
             {
-                lastUsedEntrance = cave;
+                Debug.Log($"{cave.gameObject.name}: Teleporting after sequence");
                 cave.Teleport(robotController);
                 return;
             }
         }
 
-        // Reset last used entrance if robot moved away
-        lastUsedEntrance = null;
+        Debug.Log("Robot not inside any cave");
     }
 }

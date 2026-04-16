@@ -18,23 +18,27 @@ public class RobotController : MonoBehaviour
 
     private LayerMask movementBlockLayer;
 
+    // ✅ ADD THIS
+    public bool isTeleporting = false;
+    public bool sequenceRunning = false;
+
     void Start()
     {
-        // Combine both layers so both block movement
         movementBlockLayer = obstacleLayer | destructableLayer;
     }
 
     public IEnumerator MoveForward()
     {
+        // ✅ BLOCK MOVEMENT DURING TELEPORT
+        if (isTeleporting)
+            yield break;
+
         Vector3 rayOrigin = transform.position + Vector3.up * rayHeight;
 
-        // Block movement if obstacle OR destructable object
         if (Physics.Raycast(rayOrigin, transform.forward, checkDistance, movementBlockLayer))
         {
             Debug.Log("Move blocked");
-
             Debug.DrawRay(rayOrigin, transform.forward * checkDistance, Color.red, 1f);
-
             yield return new WaitForSeconds(0.1f);
             yield break;
         }
@@ -46,6 +50,8 @@ public class RobotController : MonoBehaviour
 
         while (t < 1f)
         {
+            if (isTeleporting) yield break; // extra safety
+
             t += Time.deltaTime * moveSpeed;
             transform.position = Vector3.Lerp(start, end, t);
             yield return null;
@@ -54,6 +60,8 @@ public class RobotController : MonoBehaviour
 
     public IEnumerator TurnLeft()
     {
+        if (isTeleporting) yield break;
+
         Quaternion start = transform.rotation;
         Quaternion end = start * Quaternion.Euler(0, -90, 0);
 
@@ -61,6 +69,8 @@ public class RobotController : MonoBehaviour
 
         while (t < 1f)
         {
+            if (isTeleporting) yield break;
+
             t += Time.deltaTime * (rotateSpeed / 90f);
             transform.rotation = Quaternion.Slerp(start, end, t);
             yield return null;
@@ -69,6 +79,8 @@ public class RobotController : MonoBehaviour
 
     public IEnumerator TurnRight()
     {
+        if (isTeleporting) yield break;
+
         Quaternion start = transform.rotation;
         Quaternion end = start * Quaternion.Euler(0, 90, 0);
 
@@ -76,6 +88,8 @@ public class RobotController : MonoBehaviour
 
         while (t < 1f)
         {
+            if (isTeleporting) yield break;
+
             t += Time.deltaTime * (rotateSpeed / 90f);
             transform.rotation = Quaternion.Slerp(start, end, t);
             yield return null;
@@ -84,19 +98,17 @@ public class RobotController : MonoBehaviour
 
     public IEnumerator UseDrill()
     {
-        RaycastHit hit;
+        if (isTeleporting) yield break;
 
+        RaycastHit hit;
         Vector3 rayOrigin = transform.position + Vector3.up * rayHeight;
 
-        // Only detect destructable objects
         if (Physics.Raycast(rayOrigin, transform.forward, out hit, drillDistance, destructableLayer))
         {
             Debug.Log("Drilled object: " + hit.collider.name);
-
             Debug.DrawRay(rayOrigin, transform.forward * drillDistance, Color.blue, 1f);
 
             Destructible destructible = hit.collider.GetComponentInParent<Destructible>();
-
             if (destructible != null)
             {
                 destructible.DestroyObject();
@@ -107,9 +119,7 @@ public class RobotController : MonoBehaviour
         else
         {
             Debug.Log("Nothing to drill");
-
             Debug.DrawRay(rayOrigin, transform.forward * drillDistance, Color.yellow, 1f);
-
             yield return new WaitForSeconds(0.2f);
         }
     }

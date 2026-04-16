@@ -1,29 +1,47 @@
 using UnityEngine;
 
-public class CaveEntrance : MonoBehaviour
+public class SimpleCavePortal : MonoBehaviour
 {
-    public CaveEntrance linkedEntrance;
-    public Transform exitPoint;
+    [Header("Relative Teleport Offset")]
+    public Vector3 teleportOffset;
+
+    public bool robotInside = false;
+
+    private void OnEnable()
+    {
+        CaveManager.Register(this);
+    }
+
+    private void OnDisable()
+    {
+        CaveManager.Unregister(this);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        RobotController robot = other.GetComponentInParent<RobotController>();
+
+        if (robot != null)
+        {
+            robotInside = true;
+            Debug.Log($"{gameObject.name}: Robot ENTERED");
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        RobotController robot = other.GetComponentInParent<RobotController>();
+
+        if (robot != null)
+        {
+            robotInside = false;
+            Debug.Log($"{gameObject.name}: Robot EXITED");
+        }
+    }
 
     public void Teleport(RobotController robot)
     {
-        if (linkedEntrance == null)
-        {
-            Debug.LogWarning("No linked entrance assigned on CaveEntrance: " + gameObject.name);
-            return;
-        }
-
-        Transform target = linkedEntrance.exitPoint;
-
-        if (target == null)
-        {
-            Debug.LogWarning("Linked entrance has no exit point: " + linkedEntrance.gameObject.name);
-            return;
-        }
-
-        robot.transform.position = target.position;
-        robot.transform.rotation = target.rotation;
-
-        Debug.Log($"Robot teleported from {gameObject.name} to {target.name}");
+        robot.transform.position += teleportOffset;
+        Debug.Log($"{gameObject.name}: Teleport executed after sequence");
     }
 }

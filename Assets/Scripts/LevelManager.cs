@@ -85,8 +85,6 @@ public class LevelManager : MonoBehaviour
         levelLoader.LoadLevel(index);
         UpdateLevelIndicator();
 
-        if (sequenceExecutor != null)
-            sequenceExecutor.RefreshCaveEntrances();
 
         if (narrativeUI != null && levelLoader.CurrentLevelData != null)
             StartCoroutine(ShowNarrativeDelayed());
