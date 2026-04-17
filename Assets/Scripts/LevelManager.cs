@@ -85,7 +85,6 @@ public class LevelManager : MonoBehaviour
         levelLoader.LoadLevel(index);
         UpdateLevelIndicator();
 
-
         if (narrativeUI != null && levelLoader.CurrentLevelData != null)
             StartCoroutine(ShowNarrativeDelayed());
     }
@@ -93,6 +92,7 @@ public class LevelManager : MonoBehaviour
     private IEnumerator ShowNarrativeDelayed()
     {
         yield return new WaitForSeconds(0.1f);
+
         if (levelLoader.CurrentLevelData != null)
             narrativeUI.ShowNarrative(levelLoader.CurrentLevelData);
     }
@@ -100,6 +100,7 @@ public class LevelManager : MonoBehaviour
     private void LoadNextLevel()
     {
         int nextIndex = levelLoader.CurrentLevelIndex + 1;
+
         if (nextIndex < levelLoader.levelPrefabs.Length)
         {
             LoadLevel(nextIndex);
@@ -114,7 +115,8 @@ public class LevelManager : MonoBehaviour
     {
         if (levelIndicatorText != null && levelLoader.CurrentLevelData != null)
         {
-            levelIndicatorText.text = $"Level {levelLoader.CurrentLevelIndex + 1}: {levelLoader.CurrentLevelData.levelName}";
+            levelIndicatorText.text =
+                $"Level {levelLoader.CurrentLevelIndex + 1}: {levelLoader.CurrentLevelData.levelName}";
         }
     }
 }
