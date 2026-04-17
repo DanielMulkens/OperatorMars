@@ -914,7 +914,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ObjectPickup
   inputActions: {fileID: -944628639613478452, guid: ec92eaa81824c6c488d54c1f223bab29, type: 3}
   holdPoint: {fileID: 707193914}
-  grabDistance: 5
+  grabDistance: 10
   moveSpeed: 15
   throwForce: 30
   throwUpwardBoost: 0.2
