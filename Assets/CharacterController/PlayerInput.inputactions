@@ -20,14 +20,41 @@
                     "type": "Value",
                     "id": "245bfe9e-7976-4d7c-9825-f3dde88daa2d",
                     "expectedControlType": "Vector2",
-                    "processors": "",
+                    "processors": "ScaleVector2(x=0.003,y=0.003)",
                     "interactions": "",
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Jump",
+                    "name": "InteractMain",
                     "type": "Button",
-                    "id": "01f0352f-ff36-465a-893e-67e96747000b",
+                    "id": "4ad52ad4-27c0-417a-93ea-9197b09220e6",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "InteractSecond",
+                    "type": "Button",
+                    "id": "4f3cc132-f416-441d-8582-9acf540626aa",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Throw",
+                    "type": "Button",
+                    "id": "e4345630-3b6a-4687-a100-54b8949a3640",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Pause",
+                    "type": "Button",
+                    "id": "d33ba33a-51fb-44b8-84a2-c31969edba7a",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -103,12 +130,56 @@
                 },
                 {
                     "name": "",
-                    "id": "404c7f05-e217-4698-8ad2-8d71cbb725b6",
-                    "path": "<Keyboard>/space",
+                    "id": "47db5ac3-a2d7-46b2-9a08-af5f1d86e4c0",
+                    "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Jump",
+                    "action": "InteractMain",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "605d3ddb-3a5b-4185-92c6-3b21ea53a3e8",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "InteractSecond",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5066af6a-b6cf-4e57-8574-d39f4d4e6759",
+                    "path": "<Keyboard>/g",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Throw",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "aa99311c-8735-4835-b817-87040c146524",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b9e7564d-2164-4465-8f4e-0ddd9558aa0b",
+                    "path": "<Keyboard>/p",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pause",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

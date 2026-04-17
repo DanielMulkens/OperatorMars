@@ -1,56 +1,132 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerMovement : MonoBehaviour
+[RequireComponent(typeof(CharacterController))]
+public class SimpleFPSController : MonoBehaviour
 {
-    public float speed = 5f;
-    public float mouseSensitivity = 100f;
+    public InputActionAsset controls;
     public Transform cameraTransform;
 
-    Vector2 moveInput;
-    Vector2 lookInput;
+    [Header("Movement")]
+    public float moveSpeed = 5f;
 
-    float xRotation = 0f;
+    [Header("Look")]
+    [Tooltip("Scale this to adjust mouse speed")]
+    public float mouseSensitivity = 1f;
+
+    [Header("Gravity")]
+    public float gravity = -9.81f;
+
+    [Header("Interaction")]
+    public float interactDistance = 5f;
 
     CharacterController controller;
 
-    void Start()
+    InputAction moveAction;
+    InputAction lookAction;
+    InputAction interactSecondAction;
+
+    Vector3 velocity;
+    float xRotation = 0f;
+
+    void Awake()
     {
         controller = GetComponent<CharacterController>();
+
+        var map = controls.FindActionMap("Player");
+
+        moveAction = map.FindAction("Move");
+        lookAction = map.FindAction("Look");
+        interactSecondAction = map.FindAction("InteractSecond");
+    }
+
+    void OnEnable()
+    {
+        moveAction.Enable();
+        lookAction.Enable();
+        interactSecondAction.Enable();
+
+        interactSecondAction.performed += OnInteractSecond;
+
         Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
-    public void OnMove(InputAction.CallbackContext context)
+    void OnDisable()
     {
-        moveInput = context.ReadValue<Vector2>();
-    }
+        moveAction.Disable();
+        lookAction.Disable();
+        interactSecondAction.Disable();
 
-    public void OnLook(InputAction.CallbackContext context)
-    {
-        lookInput = context.ReadValue<Vector2>();
+        interactSecondAction.performed -= OnInteractSecond;
+
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 
     void Update()
     {
-        Move();
-        Look();
+        HandleMovement();
+        HandleLook();
     }
 
-    void Move()
+    void HandleMovement()
     {
-        Vector3 move = transform.right * moveInput.x + transform.forward * moveInput.y;
-        controller.Move(move * speed * Time.deltaTime);
+        Vector2 input = moveAction.ReadValue<Vector2>();
+        Vector3 move = transform.right * input.x + transform.forward * input.y;
+
+        controller.Move(move * moveSpeed * Time.deltaTime);
+
+        if (controller.isGrounded && velocity.y < 0)
+            velocity.y = -2f;
+
+        velocity.y += gravity * Time.deltaTime;
+        controller.Move(velocity * Time.deltaTime);
     }
 
-    void Look()
+    void HandleLook()
     {
-        float mouseX = lookInput.x * mouseSensitivity * Time.deltaTime;
-        float mouseY = lookInput.y * mouseSensitivity * Time.deltaTime;
+        Vector2 lookInput = lookAction.ReadValue<Vector2>();
+
+        float mouseX = lookInput.x * mouseSensitivity;
+        float mouseY = lookInput.y * mouseSensitivity;
 
         xRotation -= mouseY;
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
 
         cameraTransform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
         transform.Rotate(Vector3.up * mouseX);
+    }
+
+    void OnInteractSecond(InputAction.CallbackContext context)
+    {
+        Ray ray = new Ray(cameraTransform.position, cameraTransform.forward);
+
+        if (Physics.Raycast(ray, out RaycastHit hit, interactDistance))
+        {
+            InteractableButton button = hit.collider.GetComponent<InteractableButton>();
+            if (button != null)
+            {
+                button.Interact();
+            }
+        }
+    }
+
+    public void SetPaused(bool paused)
+    {
+        if (paused)
+        {
+            moveAction.Disable();
+            lookAction.Disable();
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
+        else
+        {
+            moveAction.Enable();
+            lookAction.Enable();
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
     }
 }
