@@ -1643,7 +1643,7 @@ MonoBehaviour:
   narrativeText: "Now it\u2019s time to go deeper. Ahead of you are tunnels carved
     beneath the ground. Use the robot\u2019s perspective camera to navigate into
     the tunnel and stay on course."
-  maxSequenceSends: 4
+  maxSequenceSends: 3
   robotStart: {fileID: 7595202949384100784}
   targetArea: {fileID: 5447608591948981530}
 --- !u!1 &2010876494612969642
