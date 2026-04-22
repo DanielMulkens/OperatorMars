@@ -666,7 +666,7 @@ GameObject:
   - component: {fileID: 1472419894}
   - component: {fileID: 1472419893}
   m_Layer: 5
-  m_Name: LevelSelector
+  m_Name: KeybindInstructor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -738,7 +738,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1587261301}
         m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
-        m_MethodName: OpenLevelSelector
+        m_MethodName: OpenKeybindings
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -891,7 +891,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MainMenu
   mainGameScene: OperatorMars
-  levelSelectorScene: LevelSelector
+  keybindingsScene: Keybindings
   creditsScene: Credits
 --- !u!4 &1587261302
 Transform:
@@ -1435,7 +1435,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Levels
+  m_text: Keybinds
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2b0f9b39e06828b4e80e0ff038d1b26b, type: 2}
   m_sharedMaterial: {fileID: -8213581400993418339, guid: 2b0f9b39e06828b4e80e0ff038d1b26b, type: 2}

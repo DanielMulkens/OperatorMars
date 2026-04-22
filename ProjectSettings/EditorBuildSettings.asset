@@ -11,6 +11,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/OperatorMars.unity
     guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/Scenes/Keybindings.unity
+    guid: f1758eae05d265a438b418f92fa09c53
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 3291e6ac3d0dd0a4893e95f9b9861d66, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: ec92eaa81824c6c488d54c1f223bab29, type: 3}

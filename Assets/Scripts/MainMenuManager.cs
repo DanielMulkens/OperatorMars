@@ -6,7 +6,7 @@ public class MainMenu : MonoBehaviour
     // Scene names (make sure they match EXACTLY in Build Settings)
     [Header("Scene Names")]
     public string mainGameScene = "OperatorMars";
-    public string levelSelectorScene = "LevelSelector";
+    public string keybindingsScene = "Keybindings";
     public string creditsScene = "Credits";
 
     // Start Game button
@@ -15,10 +15,10 @@ public class MainMenu : MonoBehaviour
         SceneManager.LoadScene(mainGameScene);
     }
 
-    // Level Selector button
-    public void OpenLevelSelector()
+    // Keybindings button
+    public void OpenKeybindings()
     {
-        SceneManager.LoadScene(levelSelectorScene);
+        SceneManager.LoadScene(keybindingsScene);
     }
 
     // Credits button
