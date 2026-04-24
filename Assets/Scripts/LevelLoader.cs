@@ -8,9 +8,23 @@ public class LevelLoader : MonoBehaviour
     public InteractableButton sequenceButton;
     public RobotController robotController;
 
+    [Header("UI Reference (drag GameCompleteUI ROOT here)")]
+    public GameCompleteUI gameCompleteUI;
+
     private GameObject currentLevelInstance;
+
     public LevelData CurrentLevelData { get; private set; }
     public int CurrentLevelIndex { get; private set; } = -1;
+
+    private void Start()
+    {
+        if (gameCompleteUI == null)
+        {
+            Debug.LogError("GameCompleteUI not assigned in LevelLoader!");
+        }
+
+        LoadLevel(0);
+    }
 
     public void LoadLevel(int index)
     {
@@ -20,13 +34,31 @@ public class LevelLoader : MonoBehaviour
             return;
         }
 
+        // =========================
+        // GAME COMPLETE
+        // =========================
         if (index >= levelPrefabs.Length)
         {
-            Debug.Log("All levels completed!");
+            Debug.Log("ALL LEVELS COMPLETED — showing Game Complete UI");
+
+            if (gameCompleteUI == null)
+            {
+                Debug.LogError("GameCompleteUI reference missing in LevelLoader!");
+                return;
+            }
+
+            // Destroy last level before showing UI
+            if (currentLevelInstance != null)
+            {
+                Destroy(currentLevelInstance);
+                currentLevelInstance = null;
+            }
+
+            gameCompleteUI.Show();
             return;
         }
 
-        // Destroy previous level fully
+        // Destroy old level
         if (currentLevelInstance != null)
         {
             Destroy(currentLevelInstance);
@@ -34,7 +66,7 @@ public class LevelLoader : MonoBehaviour
 
         CurrentLevelIndex = index;
 
-        // Instantiate new level
+        // Spawn level
         currentLevelInstance = Instantiate(
             levelPrefabs[index],
             Vector3.zero,
@@ -43,25 +75,28 @@ public class LevelLoader : MonoBehaviour
         );
 
         CurrentLevelData = currentLevelInstance.GetComponent<LevelData>();
+
         if (CurrentLevelData == null)
         {
             Debug.LogError("Level prefab missing LevelData!");
             return;
         }
 
-        // Place robot at start
+        // Move robot
         if (robotController != null && CurrentLevelData.robotStart != null)
         {
             robotController.transform.position = CurrentLevelData.robotStart.position;
             robotController.transform.rotation = CurrentLevelData.robotStart.rotation;
         }
 
-        // Assign LevelData to sequence button and reset sends
+        // Setup button
         if (sequenceButton != null)
         {
             sequenceButton.currentLevel = CurrentLevelData;
             sequenceButton.ResetSendCount();
         }
+
+        Time.timeScale = 1f;
     }
 
     public void LoadNextLevel()

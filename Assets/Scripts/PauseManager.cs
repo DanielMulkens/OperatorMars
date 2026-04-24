@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
@@ -7,6 +8,9 @@ public class PauseMenu : MonoBehaviour
     public InputActionAsset inputActions;
     public SimpleFPSController fpsController;
     public GameObject[] uiElementsToHide;
+
+    [Header("Scene Names")]
+    public string mainMenuScene = "StartScreen";
 
     private bool isPaused = false;
     private InputAction pauseAction;
@@ -33,6 +37,7 @@ public class PauseMenu : MonoBehaviour
 
     public void Resume()
     {
+        Debug.Log("RESUME called");
         pauseMenuUI.SetActive(false);
         Time.timeScale = 1f;
         isPaused = false;
@@ -40,11 +45,18 @@ public class PauseMenu : MonoBehaviour
         SetHiddenUI(true);
     }
 
+    public void GoToMainMenu()
+    {
+        Debug.Log("GO TO MAIN MENU called");
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(mainMenuScene);
+    }
+
     public void Quit()
     {
+        Debug.Log("QUIT called");
         Time.timeScale = 1f;
         Application.Quit();
-        Debug.Log("Quit");
     }
 
     void Pause()

@@ -3,39 +3,71 @@ using System.Collections;
 
 public class NarrativeUI : MonoBehaviour
 {
+    [Header("UI")]
+    public GameObject panel;
     public TypewriterEffectTMP typewriter;
-    public float displayDuration = 3f;
 
-    void OnEnable()
-    {
-        typewriter.OnTypingComplete += OnTypingComplete;
-    }
+    [Header("Timing")]
+    public float hideDelayAfterTyping = 3f;
 
-    void OnDisable()
+    private Coroutine hideRoutine;
+
+    void Awake()
     {
-        typewriter.OnTypingComplete -= OnTypingComplete;
+        // Ensure clean start state
+        if (panel != null)
+            panel.SetActive(false);
+
+        // Always register event ONCE
+        if (typewriter != null)
+            typewriter.OnTypingComplete += OnTypingComplete;
+        else
+            Debug.LogError("Typewriter reference missing in NarrativeUI!");
     }
 
     public void ShowNarrative(LevelData level)
     {
-        gameObject.SetActive(true);
-        typewriter.ShowMessage(level.narrativeText);
-    }
+        if (panel == null || typewriter == null)
+        {
+            Debug.LogError("NarrativeUI missing references!");
+            return;
+        }
 
-    public void Hide()
-    {
-        StopAllCoroutines();
-        gameObject.SetActive(false);
+        // Stop any previous hide coroutine
+        if (hideRoutine != null)
+        {
+            StopCoroutine(hideRoutine);
+            hideRoutine = null;
+        }
+
+        panel.SetActive(true);
+        typewriter.ShowMessage(level.narrativeText);
     }
 
     private void OnTypingComplete()
     {
-        StartCoroutine(HideAfterDelay());
+        Debug.Log("Typing complete received");
+
+        if (hideRoutine != null)
+            StopCoroutine(hideRoutine);
+
+        hideRoutine = StartCoroutine(HideAfterDelay());
     }
 
     private IEnumerator HideAfterDelay()
     {
-        yield return new WaitForSeconds(displayDuration);
-        Hide();
+        yield return new WaitForSeconds(hideDelayAfterTyping);
+        panel.SetActive(false);
+    }
+
+    public void Hide()
+    {
+        if (hideRoutine != null)
+        {
+            StopCoroutine(hideRoutine);
+            hideRoutine = null;
+        }
+
+        panel.SetActive(false);
     }
 }
