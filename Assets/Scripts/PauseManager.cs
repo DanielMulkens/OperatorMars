@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement; // NEW
+using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
@@ -10,7 +10,7 @@ public class PauseMenu : MonoBehaviour
     public GameObject[] uiElementsToHide;
 
     [Header("Scene Names")]
-    public string mainMenuScene = "MainMenu"; // NEW
+    public string mainMenuScene = "StartScreen";
 
     private bool isPaused = false;
     private InputAction pauseAction;
@@ -37,6 +37,7 @@ public class PauseMenu : MonoBehaviour
 
     public void Resume()
     {
+        Debug.Log("RESUME called");
         pauseMenuUI.SetActive(false);
         Time.timeScale = 1f;
         isPaused = false;
@@ -44,18 +45,18 @@ public class PauseMenu : MonoBehaviour
         SetHiddenUI(true);
     }
 
-    public void Quit()
-    {
-        Time.timeScale = 1f;
-        Application.Quit();
-        Debug.Log("Quit");
-    }
-
-    // NEW: Go to Main Menu
     public void GoToMainMenu()
     {
-        Time.timeScale = 1f; // IMPORTANT: unpause before switching
+        Debug.Log("GO TO MAIN MENU called");
+        Time.timeScale = 1f;
         SceneManager.LoadScene(mainMenuScene);
+    }
+
+    public void Quit()
+    {
+        Debug.Log("QUIT called");
+        Time.timeScale = 1f;
+        Application.Quit();
     }
 
     void Pause()
